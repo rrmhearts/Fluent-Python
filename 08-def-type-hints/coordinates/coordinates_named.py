@@ -33,9 +33,9 @@ def display(lat_lon: tuple[float, float]) -> str:
 
 def demo():
     shanghai = 31.2304, 121.4737
-    print(display(shanghai))
+    print("display() --> ", display(shanghai))
     s = geohash(shanghai)
-    print(s)
+    print("geohash() --> ", s)
 
 if __name__ == '__main__':
     demo()
