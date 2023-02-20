@@ -23,13 +23,26 @@ STOP_CODE = sys.maxunicode + 1
 def tokenize(text: str) -> Iterator[str]:  # <1>
     """return iterable of uppercased words"""
     for match in RE_WORD.finditer(text):
+        # for each word in phrase, group goes to string from re.Match object
         yield match.group().upper()
 
 def name_index(start: int = 32, end: int = STOP_CODE) -> dict[str, set[str]]:
     index: dict[str, set[str]] = {}  # <2>
     for char in (chr(i) for i in range(start, end)):
+        # for each unicode character
         if name := unicodedata.name(char, ''):  # <3>
+            # lookup English word name of character
             for word in tokenize(name):
+                # for each word in the name, add to dict with symbol in value set
                 index.setdefault(word, set()).add(char)
     return index
 # end::CHARINDEX[]
+
+if __name__ == '__main__':
+    index = name_index(32, 65)
+    print(f"""
+        SIGN: { sorted(index['SIGN']) }
+        DIGIT: { sorted(index['DIGIT']) }
+        DIGIT & EIGHT: { index['DIGIT'] & index['EIGHT'] }
+        # & is a set operation
+        """)
