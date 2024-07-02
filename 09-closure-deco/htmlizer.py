@@ -74,3 +74,17 @@ def _(x) -> str:
 
 # end::HTMLIZE[]
 
+def html_wrapper(*args, **kwargs):
+    print(f'{str(args):30}:=> {htmlize(*args, *kwargs)}')
+
+if __name__ == "__main__":
+
+    html_wrapper({1, 2, 3})  # <1>
+    html_wrapper(abs)
+    html_wrapper('Heimlich & Co.\n- a game')  # <2>
+    html_wrapper(42)  # <3>
+    html_wrapper(['alpha', 66, {3, 2, 1}])  # <4>
+    html_wrapper(True)  # <5>
+    html_wrapper(fractions.Fraction(2, 3))  # <6>
+    html_wrapper(2/3)   # <7>
+    html_wrapper(decimal.Decimal('0.02380952'))
